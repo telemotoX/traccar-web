@@ -36,9 +36,17 @@ Ext.define('Traccar.view.dialog.RegisterController', {
         if (success) {
             this.closeView();
             Traccar.app.showToast(Strings.loginCreated);
+            var data = Ext.decode(response.responseText);
+            Traccar.app.setUser(data);
+            this.saveToken(data.token);
+            this.fireViewEvent('login');
         } else {
             Traccar.app.showError(response);
         }
-    }
+    },
+
+    saveToken: function (token) {
+        localStorage.setItem('user-token', token);
+    },
 
 });

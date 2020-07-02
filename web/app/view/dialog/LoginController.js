@@ -49,7 +49,9 @@ Ext.define('Traccar.view.dialog.LoginController', {
                             Ext.util.Cookies.set('user', user, Ext.Date.add(new Date(), Ext.Date.YEAR, 1));
                             Ext.util.Cookies.set('password', password, Ext.Date.add(new Date(), Ext.Date.YEAR, 1));
                         }
-                        Traccar.app.setUser(Ext.decode(response.responseText));
+                        var data = Ext.decode(response.responseText);
+                        Traccar.app.setUser(data);
+                        this.saveToken(data.token);
                         this.fireViewEvent('login');
                     } else {
                         this.getView().setVisible(true);
@@ -64,6 +66,14 @@ Ext.define('Traccar.view.dialog.LoginController', {
         }
     },
 
+    saveToken: function (token) {
+        localStorage.setItem('user-token', token);
+    },
+
+    clearToken: function () {
+        localStorage.removeItem('user-token');
+    },
+
     logout: function () {
         Ext.util.Cookies.clear('user');
         Ext.util.Cookies.clear('password');
@@ -72,6 +82,7 @@ Ext.define('Traccar.view.dialog.LoginController', {
             method: 'DELETE',
             url: 'api/session',
             callback: function () {
+                this.clearToken();
                 window.location.reload();
             }
         });

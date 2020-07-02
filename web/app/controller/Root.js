@@ -70,7 +70,8 @@ Ext.define('Traccar.controller.Root', {
         var token, parameters = {};
         if (success) {
             Traccar.app.setServer(Ext.decode(response.responseText));
-            token = Ext.Object.fromQueryString(window.location.search).token;
+            // token = Ext.Object.fromQueryString(window.location.search).token;
+            token = localStorage.getItem('user-token');
             if (token) {
                 parameters.token = token;
             }
