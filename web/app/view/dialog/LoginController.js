@@ -51,6 +51,7 @@ Ext.define('Traccar.view.dialog.LoginController', {
                         }
                         var data = Ext.decode(response.responseText);
                         Traccar.app.setUser(data);
+                        this.saveUserId(data.id);
                         this.saveToken(data.token);
                         this.fireViewEvent('login');
                     } else {
@@ -70,8 +71,13 @@ Ext.define('Traccar.view.dialog.LoginController', {
         localStorage.setItem('user-token', token);
     },
 
+    saveUserId: function (id) {
+        localStorage.setItem('user-id', id);
+    },
+
     clearToken: function () {
         localStorage.removeItem('user-token');
+        localStorage.removeItem('user-id');
     },
 
     logout: function () {

@@ -72,9 +72,11 @@ Ext.define('Traccar.controller.Root', {
             Traccar.app.setServer(Ext.decode(response.responseText));
             // token = Ext.Object.fromQueryString(window.location.search).token;
             token = localStorage.getItem('user-token');
-            if (token) {
+            userId = localStorage.getItem('user-id');
+            if (token)
                 parameters.token = token;
-            }
+                parameters.userId = userId;
+
             Ext.Ajax.request({
                 scope: this,
                 url: 'api/session',
@@ -108,6 +110,20 @@ Ext.define('Traccar.controller.Root', {
         this.loadApp();
     },
 
+    logout: function () {
+        Ext.util.Cookies.clear('user');
+        Ext.util.Cookies.clear('password');
+        Ext.Ajax.request({
+            scope: this,
+            method: 'DELETE',
+            url: 'api/session',
+            callback: function () {
+                localStorage.removeItem('user-token');
+                window.location.reload();
+            }
+        });
+    },
+
     loadApp: function () {
         var attribution, eventId;
 
@@ -118,28 +134,114 @@ Ext.define('Traccar.controller.Root', {
             window.appInterface.postMessage('login');
         }
 
-        Ext.getStore('Groups').load();
-        Ext.getStore('Drivers').load();
-        Ext.getStore('Geofences').load();
-        Ext.getStore('Calendars').load();
-        Ext.getStore('Maintenances').load();
-        Ext.getStore('ComputedAttributes').load();
-        Ext.getStore('AllCommandTypes').load();
-        Ext.getStore('Commands').load();
-        Ext.getStore('AllNotificationTypes').load({
+        Ext.getStore('Groups').load({
+            params:{ token: localStorage.getItem("user-token")},
+            scope: this,
             callback: function (records, operation, success) {
-                var store = Ext.getStore('ReportEventTypes');
-                if (success) {
-                    store.add({
-                        type: Traccar.store.ReportEventTypes.allEvents,
-                        name: Strings.eventAll
-                    });
-                    store.loadData(records, true);
+                if(!success) {
+                    this.logout();
                 }
             }
         });
-        Ext.getStore('AllNotificators').load();
-        Ext.getStore('Notifications').load();
+        Ext.getStore('Drivers').load({
+            params:{ token: localStorage.getItem("user-token")},
+            scope: this,
+            callback: function (records, operation, success) {
+                if(!success) {
+                    this.logout();
+                }
+            }
+        });
+        Ext.getStore('Geofences').load({
+            params:{ token: localStorage.getItem("user-token")},
+            scope: this,
+            callback: function (records, operation, success) {
+                if(!success) {
+                    this.logout();
+                }
+            }
+        });
+        Ext.getStore('Calendars').load({
+            params:{ token: localStorage.getItem("user-token")},
+            scope: this,
+            callback: function (records, operation, success) {
+                if(!success) {
+                    this.logout();
+                }
+            }
+        });
+        Ext.getStore('Maintenances').load({
+            params:{ token: localStorage.getItem("user-token")},
+            scope: this,
+            callback: function (records, operation, success) {
+                if(!success) {
+                    this.logout();
+                }
+            }
+        });
+        Ext.getStore('ComputedAttributes').load({
+            params:{ token: localStorage.getItem("user-token")},
+            scope: this,
+            callback: function (records, operation, success) {
+                if(!success) {
+                    this.logout();
+                }
+            }
+        });
+        Ext.getStore('AllCommandTypes').load({
+            params:{ token: localStorage.getItem("user-token")},
+            scope: this,
+            callback: function (records, operation, success) {
+                if(!success) {
+                    this.logout();
+                }
+            }
+        });
+        Ext.getStore('Commands').load({
+            params:{ token: localStorage.getItem("user-token")},
+            scope: this,
+            callback: function (records, operation, success) {
+                if(!success) {
+                    this.logout();
+                }
+            }
+        });
+        Ext.getStore('AllNotificationTypes').load({
+            params:{ token: localStorage.getItem("user-token")},
+            scope: this,
+            callback: function (records, operation, success) {
+                if(!success) {
+                    this.logout();
+                } else {
+                    var store = Ext.getStore('ReportEventTypes');
+                    if (success) {
+                        store.add({
+                            type: Traccar.store.ReportEventTypes.allEvents,
+                            name: Strings.eventAll
+                        });
+                        store.loadData(records, true);
+                    }
+                }
+            }
+        });
+        Ext.getStore('AllNotificators').load({
+            params:{ token: localStorage.getItem("user-token")},
+            scope: this,
+            callback: function (records, operation, success) {
+                if(!success) {
+                    this.logout();
+                }
+            }
+        });
+        Ext.getStore('Notifications').load({
+            params:{ token: localStorage.getItem("user-token")},
+            scope: this,
+            callback: function (records, operation, success) {
+                if(!success) {
+                    this.logout();
+                }
+            }
+        });
 
         Ext.getStore('ServerAttributes').loadData(Ext.getStore('CommonDeviceAttributes').getData().items, true);
         Ext.getStore('ServerAttributes').loadData(Ext.getStore('CommonUserAttributes').getData().items, true);
@@ -148,9 +250,13 @@ Ext.define('Traccar.controller.Root', {
         Ext.getStore('GroupAttributes').loadData(Ext.getStore('CommonDeviceAttributes').getData().items, true);
 
         Ext.getStore('Devices').load({
+            params:{ token: localStorage.getItem("user-token")},
             scope: this,
-            callback: function () {
-                this.asyncUpdate(true);
+            callback: function (records, operation, success) {
+                if(!success)
+                    this.logout();
+                else
+                    this.asyncUpdate(true);
             }
         });
         attribution = Ext.get('attribution');
@@ -195,13 +301,18 @@ Ext.define('Traccar.controller.Root', {
         var self = this, protocol, pathname, socket;
         protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
         pathname = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-        socket = new WebSocket(protocol + '//' + window.location.host + pathname + 'api/socket');
+        socket = new WebSocket(protocol + '//' + window.location.host + pathname +
+            'api/socket?user_id=' + localStorage.getItem("user-id") +
+            '&token=' + localStorage.getItem("user-token")
+        );
 
         socket.onclose = function () {
             Traccar.app.showToast(Strings.errorSocket, Strings.errorTitle);
 
             Ext.Ajax.request({
                 url: 'api/devices',
+                method: 'GET',
+                params:{ token: localStorage.getItem("user-token")},
                 success: function (response) {
                     self.updateDevices(Ext.decode(response.responseText));
                 },
@@ -214,6 +325,8 @@ Ext.define('Traccar.controller.Root', {
 
             Ext.Ajax.request({
                 url: 'api/positions',
+                method: 'GET',
+                params:{ token: localStorage.getItem("user-token")},
                 headers: {
                     Accept: 'application/json'
                 },

@@ -66,7 +66,6 @@ const DevicePage = () => {
   }
 
   return (
-    <>
       <MainToobar history={history} />
       <Container maxWidth='xs' className={classes.container}>
         <form>
