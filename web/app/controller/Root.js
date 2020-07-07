@@ -62,26 +62,24 @@ Ext.define('Traccar.controller.Root', {
         Ext.Ajax.request({
             scope: this,
             url: 'api/server',
+            // headers: {
+            //     'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+            // },
             callback: this.onServerReturn
         });
     },
 
     onServerReturn: function (options, success, response) {
-        var token, parameters = {};
         if (success) {
             Traccar.app.setServer(Ext.decode(response.responseText));
-            // token = Ext.Object.fromQueryString(window.location.search).token;
-            token = localStorage.getItem('user-token');
-            userId = localStorage.getItem('user-id');
-            if (token)
-                parameters.token = token;
-                parameters.userId = userId;
 
             Ext.Ajax.request({
                 scope: this,
                 url: 'api/session',
                 method: 'GET',
-                params: parameters,
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+                },
                 callback: this.onSessionReturn
             });
         } else {
@@ -116,6 +114,9 @@ Ext.define('Traccar.controller.Root', {
         Ext.Ajax.request({
             scope: this,
             method: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+            },
             url: 'api/session',
             callback: function () {
                 localStorage.removeItem('user-token');
@@ -135,79 +136,85 @@ Ext.define('Traccar.controller.Root', {
         }
 
         Ext.getStore('Groups').load({
-            params:{ token: localStorage.getItem("user-token")},
             scope: this,
             callback: function (records, operation, success) {
-                if(!success) {
+                if(!success)
                     this.logout();
-                }
             }
+        }).getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
         });
         Ext.getStore('Drivers').load({
-            params:{ token: localStorage.getItem("user-token")},
             scope: this,
             callback: function (records, operation, success) {
                 if(!success) {
                     this.logout();
                 }
             }
+        }).getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
         });
         Ext.getStore('Geofences').load({
-            params:{ token: localStorage.getItem("user-token")},
             scope: this,
             callback: function (records, operation, success) {
                 if(!success) {
                     this.logout();
                 }
             }
+        }).getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
         });
         Ext.getStore('Calendars').load({
-            params:{ token: localStorage.getItem("user-token")},
             scope: this,
             callback: function (records, operation, success) {
                 if(!success) {
                     this.logout();
                 }
             }
+        }).getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
         });
         Ext.getStore('Maintenances').load({
-            params:{ token: localStorage.getItem("user-token")},
             scope: this,
             callback: function (records, operation, success) {
                 if(!success) {
                     this.logout();
                 }
             }
+        }).getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
         });
         Ext.getStore('ComputedAttributes').load({
-            params:{ token: localStorage.getItem("user-token")},
             scope: this,
             callback: function (records, operation, success) {
                 if(!success) {
                     this.logout();
                 }
             }
+        }).getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
         });
         Ext.getStore('AllCommandTypes').load({
-            params:{ token: localStorage.getItem("user-token")},
             scope: this,
             callback: function (records, operation, success) {
                 if(!success) {
                     this.logout();
                 }
             }
+        }).getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
         });
         Ext.getStore('Commands').load({
-            params:{ token: localStorage.getItem("user-token")},
             scope: this,
             callback: function (records, operation, success) {
                 if(!success) {
                     this.logout();
                 }
             }
+        }).getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
         });
         Ext.getStore('AllNotificationTypes').load({
-            params:{ token: localStorage.getItem("user-token")},
             scope: this,
             callback: function (records, operation, success) {
                 if(!success) {
@@ -223,34 +230,56 @@ Ext.define('Traccar.controller.Root', {
                     }
                 }
             }
+        }).getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
         });
         Ext.getStore('AllNotificators').load({
-            params:{ token: localStorage.getItem("user-token")},
             scope: this,
             callback: function (records, operation, success) {
                 if(!success) {
                     this.logout();
                 }
             }
+        }).getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
         });
         Ext.getStore('Notifications').load({
-            params:{ token: localStorage.getItem("user-token")},
             scope: this,
             callback: function (records, operation, success) {
                 if(!success) {
                     this.logout();
                 }
             }
+        }).getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
         });
 
+        Ext.getStore('ServerAttributes').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
         Ext.getStore('ServerAttributes').loadData(Ext.getStore('CommonDeviceAttributes').getData().items, true);
+
+        Ext.getStore('ServerAttributes').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
         Ext.getStore('ServerAttributes').loadData(Ext.getStore('CommonUserAttributes').getData().items, true);
+
+        Ext.getStore('UserAttributes').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
         Ext.getStore('UserAttributes').loadData(Ext.getStore('CommonUserAttributes').getData().items, true);
+
+        Ext.getStore('DeviceAttributes').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
         Ext.getStore('DeviceAttributes').loadData(Ext.getStore('CommonDeviceAttributes').getData().items, true);
+
+        Ext.getStore('GroupAttributes').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
         Ext.getStore('GroupAttributes').loadData(Ext.getStore('CommonDeviceAttributes').getData().items, true);
 
         Ext.getStore('Devices').load({
-            params:{ token: localStorage.getItem("user-token")},
             scope: this,
             callback: function (records, operation, success) {
                 if(!success)
@@ -258,7 +287,81 @@ Ext.define('Traccar.controller.Root', {
                 else
                     this.asyncUpdate(true);
             }
+        }).getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
         });
+
+        Ext.getStore('AllCalendars').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('AllCommands').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('AllComputedAttributes').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('AllDevices').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('AllDrivers').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('AllGeofences').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('AllGroups').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('AllMaintenances').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('AllNotifications').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('Attributes').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('Calendars').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('CommandTypes').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('DeviceCommands').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('EventPositions').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('Events').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('Positions').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('ReportEvents').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('ReportRoute').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('ReportStops').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('ReportSummary').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('ReportTrips').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('Statistics').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+        Ext.getStore('Users').getProxy().setHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        });
+
+
         attribution = Ext.get('attribution');
         if (attribution) {
             attribution.remove();
@@ -312,7 +415,9 @@ Ext.define('Traccar.controller.Root', {
             Ext.Ajax.request({
                 url: 'api/devices',
                 method: 'GET',
-                params:{ token: localStorage.getItem("user-token")},
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+                },
                 success: function (response) {
                     self.updateDevices(Ext.decode(response.responseText));
                 },
@@ -326,9 +431,9 @@ Ext.define('Traccar.controller.Root', {
             Ext.Ajax.request({
                 url: 'api/positions',
                 method: 'GET',
-                params:{ token: localStorage.getItem("user-token")},
                 headers: {
-                    Accept: 'application/json'
+                    'Authorization': 'Bearer ' + localStorage.getItem('user-token'),
+                    'Accept': 'application/json'
                 },
                 success: function (response) {
                     self.updatePositions(Ext.decode(response.responseText));

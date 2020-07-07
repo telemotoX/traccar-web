@@ -87,6 +87,9 @@ Ext.define('Traccar.view.dialog.LoginController', {
             scope: this,
             method: 'DELETE',
             url: 'api/session',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('user-token'),
+            },
             callback: function () {
                 this.clearToken();
                 window.location.reload();

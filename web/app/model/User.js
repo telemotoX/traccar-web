@@ -93,6 +93,9 @@ Ext.define('Traccar.model.User', {
     proxy: {
         type: 'rest',
         url: 'api/users',
+        header: {
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+        },
         writer: {
             type: 'json',
             writeAllFields: true

@@ -62,8 +62,14 @@ Ext.define('Traccar.view.dialog.UserController', {
         dialog.updateRecord();
         record = dialog.getRecord();
         if (record === Traccar.app.getUser()) {
+            record.getProxy().setHeaders({
+                'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+            });
             record.save();
         } else {
+            Ext.getStore('Users').getProxy().setHeaders({
+                'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+            });
             store = Ext.getStore('Users');
             if (record.phantom) {
                 store.add(record);

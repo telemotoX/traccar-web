@@ -54,6 +54,9 @@ Ext.define('Traccar.view.permissions.BaseController', {
         Ext.Ajax.request({
             scope: this,
             url: 'api/permissions',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('user-token')
+            },
             jsonData: Ext.util.JSON.encode(data),
             callback: function (options, success, response) {
                 if (!success) {
@@ -71,6 +74,9 @@ Ext.define('Traccar.view.permissions.BaseController', {
         Ext.Ajax.request({
             scope: this,
             method: 'DELETE',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('user-token')
+            },
             url: 'api/permissions',
             jsonData: Ext.util.JSON.encode(data),
             callback: function (options, success, response) {
