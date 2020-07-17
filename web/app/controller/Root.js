@@ -62,9 +62,6 @@ Ext.define('Traccar.controller.Root', {
         Ext.Ajax.request({
             scope: this,
             url: 'api/server',
-            // headers: {
-            //     'Authorization': 'Bearer ' + localStorage.getItem('user-token')
-            // },
             callback: this.onServerReturn
         });
     },
@@ -409,6 +406,9 @@ Ext.define('Traccar.controller.Root', {
             '&token=' + localStorage.getItem("user-token")
         );
 
+        console.log(protocol + '//' + window.location.host + pathname +
+            'api/socket?user_id=' + localStorage.getItem("user-id") +
+            '&token=' + localStorage.getItem("user-token"))
         socket.onclose = function () {
             Traccar.app.showToast(Strings.errorSocket, Strings.errorTitle);
 
@@ -446,6 +446,7 @@ Ext.define('Traccar.controller.Root', {
         };
 
         socket.onmessage = function (event) {
+            console.log("event.data", event.data)
             var data = Ext.decode(event.data);
 
             if (data.devices) {
