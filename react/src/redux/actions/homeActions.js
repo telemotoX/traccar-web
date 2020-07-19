@@ -263,9 +263,8 @@ const getPositions = (dispatch) => {
 }
 
 const asyncUpdate = (first, dispatch) => {
-  let protocol, pathname, socket
+  let protocol, socket
   protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
-  // pathname = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
 
   const user = JSON.parse(localStorage.getItem("user"))
   const socketUrl = protocol + '//' + SOCKET_URL +

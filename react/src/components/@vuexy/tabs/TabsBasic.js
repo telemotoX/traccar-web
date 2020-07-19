@@ -1,9 +1,7 @@
 import React from "react"
 import {
   Card,
-  CardHeader,
   CardBody,
-  CardTitle,
   TabContent,
   TabPane,
   Nav,
@@ -11,7 +9,6 @@ import {
   NavLink
 } from "reactstrap"
 import classnames from "classnames"
-import { Eye, Code } from "react-feather"
 import { tabsBasic } from "./TabSourceCode"
 
 class TabsBasic extends React.Component {

@@ -5,9 +5,6 @@ import "firebase/database"
 import axios from "axios"
 
 export const signupWithJWT = (email, password, name) => {
-  console.log(name)
-  console.log(email)
-  console.log(password)
   return dispatch => {
     axios
       .post(API_URL + "/api/users", {
@@ -16,17 +13,17 @@ export const signupWithJWT = (email, password, name) => {
         name: name
       })
       .then(response => {
-        var loggedInUser
-
+        var user
+        console.log(response)
         if(response.data){
-          loggedInUser = response.data
+          user = response.data
 
           dispatch({
             type: "LOGIN_WITH_JWT",
-            payload: { loggedInUser, loggedInWith: "jwt" }
+            payload: { user }
           })
 
-          history.push("/")
+          history.push("/login")
         }
 
       })

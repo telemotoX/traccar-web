@@ -2,7 +2,7 @@ export const login = (
   state = {
     userRole: "admin",
     isAuthUser: !!localStorage.getItem('user'),
-    user: JSON.parse(localStorage.getItem("user")) || {}
+    user: JSON.parse(localStorage.getItem('user')) || {}
   },
   action) => {
   switch (action.type) {

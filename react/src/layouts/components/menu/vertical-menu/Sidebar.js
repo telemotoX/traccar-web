@@ -4,7 +4,6 @@ import { ContextLayout } from "../../../../utility/context/Layout"
 import { connect } from "react-redux"
 import SidebarHeader from "./SidebarHeader"
 import Hammer from "react-hammerjs"
-import SideMenuContent from "./sidemenu/SideMenuContent"
 import PerfectScrollbar from "react-perfect-scrollbar"
 import TabsBasic from "../../../../components/@vuexy/tabs/TabsBasic";
 
@@ -113,17 +112,10 @@ class Sidebar extends Component {
       collapsed,
       activePath,
       sidebarState,
-      currentLang,
-      permission,
-      currentUser,
-      collapsedMenuPaths
     } = this.props
 
     let {
       menuShadow,
-      activeIndex,
-      hoveredMenuItem,
-      activeItem,
       ScrollbarTag
     } = this.state
     let scrollShadow = (container, dir) => {
