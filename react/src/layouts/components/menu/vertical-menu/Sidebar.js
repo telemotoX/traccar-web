@@ -5,7 +5,7 @@ import { connect } from "react-redux"
 import SidebarHeader from "./SidebarHeader"
 import Hammer from "react-hammerjs"
 import PerfectScrollbar from "react-perfect-scrollbar"
-import TabsBasic from "../../../../components/@vuexy/tabs/TabsBasic";
+import TabsBasic from "../../../../views/tabs/TabsBasic"
 
 class Sidebar extends Component {
   static getDerivedStateFromProps(props, state) {

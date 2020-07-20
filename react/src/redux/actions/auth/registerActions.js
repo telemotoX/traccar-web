@@ -14,7 +14,6 @@ export const signupWithJWT = (email, password, name) => {
       })
       .then(response => {
         var user
-        console.log(response)
         if(response.data){
           user = response.data
 

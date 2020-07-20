@@ -3,7 +3,7 @@ import { history } from "../../history"
 import { Map, TileLayer, Marker, Popup } from "react-leaflet"
 import ToastBasic from "../../components/@vuexy/toast/ToastBasic";
 import {connect} from "react-redux";
-import {init} from "../../redux/actions/homeActions"
+import {init} from "../../redux/actions/initActions"
 
 import "../../assets/scss/plugins/extensions/maps.scss"
 

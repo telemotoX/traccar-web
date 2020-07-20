@@ -13,8 +13,6 @@ export const init = () => {
     axios
       .get(API_URL + "/api/server", config)
       .then(response => {
-        console.log("GET server => ", response)
-
         getGroups(dispatch)
         getDrivers(dispatch)
         getGeofences(dispatch)
@@ -49,7 +47,6 @@ const getGroups = (dispatch) => {
   axios
     .get(API_URL + "/api/groups", config)
     .then(response => {
-      console.log("GET groups => ", response)
     })
     .catch(err => {
       dispatch({type: "LOGOUT_WITH_JWT", payload: {}})
@@ -66,7 +63,6 @@ const getDrivers = (dispatch) => {
   axios
     .get(API_URL + "/api/drivers", config)
     .then(response => {
-      console.log("GET drivers => ", response)
     })
     .catch(err => {
       dispatch({type: "LOGOUT_WITH_JWT", payload: {}})
@@ -83,7 +79,6 @@ const getGeofences = (dispatch) => {
   axios
     .get(API_URL + "/api/geofences", config)
     .then(response => {
-      console.log("GET geofences => ", response)
     })
     .catch(err => {
       dispatch({type: "LOGOUT_WITH_JWT", payload: {}})
@@ -100,7 +95,6 @@ const getCalendars = (dispatch) => {
   axios
     .get(API_URL + "/api/calendars", config)
     .then(response => {
-      console.log("GET calendars => ", response)
     })
     .catch(err => {
       dispatch({type: "LOGOUT_WITH_JWT", payload: {}})
@@ -117,7 +111,6 @@ const getMaintenance = (dispatch) => {
   axios
     .get(API_URL + "/api/maintenance", config)
     .then(response => {
-      console.log("GET maintenance => ", response)
     })
     .catch(err => {
       dispatch({type: "LOGOUT_WITH_JWT", payload: {}})
@@ -134,7 +127,6 @@ const getComputed = (dispatch) => {
   axios
     .get(API_URL + "/api/attributes/computed", config)
     .then(response => {
-      console.log("GET computed => ", response)
     })
     .catch(err => {
       dispatch({type: "LOGOUT_WITH_JWT", payload: {}})
@@ -151,7 +143,6 @@ const getTypes = (dispatch) => {
   axios
     .get(API_URL + "/api/commands/types", config)
     .then(response => {
-      console.log("GET types => ", response)
     })
     .catch(err => {
       dispatch({type: "LOGOUT_WITH_JWT", payload: {}})
@@ -168,7 +159,6 @@ const getCommands = (dispatch) => {
   axios
     .get(API_URL + "/api/commands", config)
     .then(response => {
-      console.log("GET commands => ", response)
     })
     .catch(err => {
       dispatch({type: "LOGOUT_WITH_JWT", payload: {}})
@@ -185,7 +175,6 @@ const getNotificationTypes = (dispatch) => {
   axios
     .get(API_URL + "/api/notifications/types", config)
     .then(response => {
-      console.log("GET notification types => ", response)
     })
     .catch(err => {
       dispatch({type: "LOGOUT_WITH_JWT", payload: {}})
@@ -202,7 +191,6 @@ const getNotificators = (dispatch) => {
   axios
     .get(API_URL + "/api/notifications/notificators", config)
     .then(response => {
-      console.log("GET notificators => ", response)
     })
     .catch(err => {
       dispatch({type: "LOGOUT_WITH_JWT", payload: {}})
@@ -219,7 +207,6 @@ const getNotifications = (dispatch) => {
   axios
     .get(API_URL + "/api/notifications", config)
     .then(response => {
-      console.log("GET notifications => ", response)
     })
     .catch(err => {
       dispatch({type: "LOGOUT_WITH_JWT", payload: {}})
@@ -236,7 +223,7 @@ const getDevices = (dispatch) => {
   axios
     .get(API_URL + "/api/devices", config)
     .then(response => {
-      console.log("GET devices => ", response)
+      dispatch({type: "GET_DEVICES", payload: response.data})
       asyncUpdate(true, dispatch)
     })
     .catch(err => {
@@ -254,7 +241,6 @@ const getPositions = (dispatch) => {
   axios
     .get(API_URL + "/api/positions", config)
     .then(response => {
-      console.log("GET positions => ", response)
     })
     .catch(err => {
       dispatch({type: "LOGOUT_WITH_JWT", payload: {}})
@@ -285,7 +271,6 @@ const asyncUpdate = (first, dispatch) => {
     axios
       .get(API_URL + "/api/devices", config)
       .then(response => {
-        console.log("Socket get devices => ", response)
         updateDevices(response.responseText)
       })
       .catch(err => {
@@ -297,7 +282,6 @@ const asyncUpdate = (first, dispatch) => {
     axios
       .get(API_URL + "/api/positions", config)
       .then(response => {
-        console.log("Socket get positions => ", response)
         updatePositions(response.responseText)
       })
       .catch(err => {
@@ -313,7 +297,6 @@ const asyncUpdate = (first, dispatch) => {
 
   socket.onmessage = function (event) {
     console.log("event.data", event.data)
-    // var data = Ext.decode(event.data);
     const data = event.data
 
     if(data.devices) {

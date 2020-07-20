@@ -33,7 +33,6 @@ export const loginWithJWT = user => {
         }
       })
       .catch(err => {
-        console.log(err)
         alert("That username or email already exists. Please check again")
       })
   }
