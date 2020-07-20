@@ -38,15 +38,29 @@ class Home extends React.Component{
   }
 
   render() {
+    const positions = this.props.positions
     return (
       <div>
         <ToastBasic/>
-        <Map center={[51.505, -0.09]} zoom={13}>
+        <Map
+          center={
+            positions.length > 0 ? [positions[0].latitude, positions[0].longitude] : [51.505, -0.09]
+          }
+          zoom={5}
+        >
           <TileLayer
             attribution='&ampcopy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <MyMarkersList markers={this.state.markers} />
+          <MyMarkersList markers={
+            positions.length > 0 ? positions.map(function(position){
+              return {
+                'key': position.deviceId,
+                'position': [position.latitude, position.longitude],
+                'content': "Position"
+              }
+            }) : [] }
+          />
         </Map>
       </div>
     )
@@ -55,7 +69,8 @@ class Home extends React.Component{
 
 const mapStateToProps = state => {
   return {
-    auth: state.auth.login
+    auth: state.auth.login,
+    positions: state.positions.positions
   }
 }
 

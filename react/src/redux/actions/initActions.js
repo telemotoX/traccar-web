@@ -282,7 +282,7 @@ const asyncUpdate = (first, dispatch) => {
     axios
       .get(API_URL + "/api/positions", config)
       .then(response => {
-        updatePositions(response.responseText)
+        updatePositions(response.responseText, dispatch)
       })
       .catch(err => {
         if (err.status === 401) {
@@ -296,23 +296,23 @@ const asyncUpdate = (first, dispatch) => {
   }
 
   socket.onmessage = function (event) {
-    console.log("event.data", event.data)
-    const data = event.data
+    console.log("event.data => ", event.data)
+    const data = JSON.parse(event.data)
 
     if(data.devices) {
-      updateDevices(data.devices)
+      updateDevices(data.devices, dispatch)
     }
     if(data.positions) {
-      updatePositions(data.positions, first)
+      updatePositions(data.positions, dispatch, first)
       first = false
     }
     if(data.events) {
-      updateEvents(data.events)
+      updateEvents(data.events, dispatch)
     }
   }
 }
 
-const updateEvents = (array) => {
+const updateEvents = (array, dispatch) => {
   // var i, store, device;
   // store = Ext.getStore('Events');
   // for (i = 0; i < array.length; i++) {
@@ -327,26 +327,15 @@ const updateEvents = (array) => {
   //     Traccar.app.showToast(array[i].text);
   //   }
   // }
+  dispatch({type: "UPDATE_EVENT", payload: array})
 }
 
-const updateDevices = (array) => {
-  // var i, store, entity;
-  // store = Ext.getStore('Devices');
-  // for (i = 0; i < array.length; i++) {
-  //   entity = store.getById(array[i].id);
-  //   if (entity) {
-  //     entity.set({
-  //       status: array[i].status,
-  //       lastUpdate: array[i].lastUpdate,
-  //       geofenceIds: array[i].geofenceIds
-  //     }, {
-  //       dirty: false
-  //     });
-  //   }
-  // }
+const updateDevices = (array, dispatch) => {
+  dispatch({type: "UPDATE_DEVICE", payload: array})
 }
 
-const updatePositions = (array, first) => {
+const updatePositions = (array, dispatch, first) => {
+  dispatch({type: "UPDATE_POSITION", payload: array})
   // var i, store, entity, deviceId, device;
   // store = Ext.getStore('LatestPositions');
   // for (i = 0; i < array.length; i++) {

@@ -23,6 +23,11 @@ const devicesReducer = (state = initialState, action) => {
         devices: state.devices.filter(device => device.id !== action.device_id),
         current_device: state.devices[0]
       }
+    case "UPDATE_DEVICE":
+      return {
+        ...state,
+        devices: action.payload
+      }
     case "SET_CURRENT_DEVICE":
       return {
         ...state,

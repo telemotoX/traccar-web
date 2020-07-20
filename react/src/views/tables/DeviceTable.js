@@ -34,20 +34,20 @@ class DeviceTable extends React.Component {
     this.props.setCurrentDevice(row)
   };
 
-  conditionalRowStyles = [
-    {
-      when: row => row.id === this.props.current_device.id,
-      style: {
-        backgroundColor: '#7367f075',
-        color: 'white',
-        '&:hover': {
-          cursor: 'pointer',
+  render() {
+    const conditionalRowStyles = [
+      {
+        when: row => row.id === this.props.current_device.id,
+        style: {
+          backgroundColor: '#4d42c330',
+          color: 'rgba(0,0,0,0.87)',
+          '&:hover': {
+            cursor: '',
+          },
         },
       },
-    },
-  ];
+    ];
 
-  render() {
     return (
       <Card>
         <DeviceModal />
@@ -58,7 +58,7 @@ class DeviceTable extends React.Component {
             columns={columns}
             noHeader
             onRowClicked={this.rowClicked}
-            conditionalRowStyles={this.conditionalRowStyles}
+            conditionalRowStyles={conditionalRowStyles}
           />
         </CardBody>
       </Card>
