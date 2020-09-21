@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import {
   UncontrolledDropdown,
   DropdownMenu,
@@ -9,29 +9,52 @@ import axios from "axios"
 import * as Icon from "react-feather"
 import {connect} from "react-redux";
 import {logoutWithJWT} from "../../../redux/actions/auth/loginActions";
+import GeoFenceModal from "../../../views/modals/GeoFenceModal";
 
 const UserDropdown = props => {
+  const [geofence, setGeofence] = useState(false)
+
+  const showGeoFenceModal= () => {
+    setGeofence(true)
+  }
+
+  const closeGeoFenceModal= () => {
+    setGeofence(false)
+  }
+
   return (
     <DropdownMenu right>
       <DropdownItem tag="a" href="#">
         <Icon.User size={14} className="mr-50" />
-        <span className="align-middle">Edit Profile</span>
+        <span className="align-middle">Account</span>
       </DropdownItem>
       <DropdownItem tag="a" href="#">
-        <Icon.Mail size={14} className="mr-50" />
-        <span className="align-middle">My Inbox</span>
+        <Icon.Users size={14} className="mr-50" />
+        <span className="align-middle">Groups</span>
       </DropdownItem>
       <DropdownItem tag="a" href="#">
         <Icon.CheckSquare size={14} className="mr-50" />
-        <span className="align-middle">Tasks</span>
+        <span className="align-middle">Drivers</span>
+      </DropdownItem>
+      <DropdownItem tag="a" href="#" onClick={showGeoFenceModal}>
+        <Icon.MapPin size={14} className="mr-50" />
+        <span className="align-middle">Geofences</span>
       </DropdownItem>
       <DropdownItem tag="a" href="#">
-        <Icon.MessageSquare size={14} className="mr-50" />
-        <span className="align-middle">Chats</span>
+        <Icon.Mail size={14} className="mr-50" />
+        <span className="align-middle">Notifications</span>
+      </DropdownItem>
+      <DropdownItem tag="a" href="#">
+        <Icon.Calendar size={14} className="mr-50" />
+        <span className="align-middle">Calendars</span>
+      </DropdownItem>
+      <DropdownItem tag="a" href="#">
+        <Icon.Command size={14} className="mr-50" />
+        <span className="align-middle">Saved commands</span>
       </DropdownItem>
       <DropdownItem tag="a" href="#">
         <Icon.Heart size={14} className="mr-50" />
-        <span className="align-middle">WishList</span>
+        <span className="align-middle">Maintenance</span>
       </DropdownItem>
       <DropdownItem divider />
       <DropdownItem
@@ -42,6 +65,8 @@ const UserDropdown = props => {
         <Icon.Power size={14} className="mr-50" />
         <span className="align-middle">Log Out</span>
       </DropdownItem>
+
+      <GeoFenceModal show={geofence} onClose={closeGeoFenceModal} />
     </DropdownMenu>
   )
 }
@@ -63,16 +88,36 @@ class NavbarUser extends React.PureComponent {
       <ul className="nav navbar-nav navbar-nav-user float-right">
         <UncontrolledDropdown tag="li" className="dropdown-user nav-item">
           <DropdownToggle tag="a" className="nav-link dropdown-user-link">
-          <span data-tour="user">
-            <img
-              src={this.props.userImg}
-              className="round"
-              height="40"
-              width="40"
-              alt="avatar"
-            />
-          </span>
+            <span data-tour="user" style={{width:"30px"}}>
+              <Icon.MapPin size={28} className="mr-4 fonticon-wrap" />
+            </span>
+          </DropdownToggle>
+        </UncontrolledDropdown>
 
+        <UncontrolledDropdown tag="li" className="dropdown-user nav-item">
+          <DropdownToggle tag="a" className="nav-link dropdown-user-link">
+            <span data-tour="user" style={{width:"30px"}}>
+              <Icon.Target size={28} className="mr-4 fonticon-wrap" />
+            </span>
+          </DropdownToggle>
+        </UncontrolledDropdown>
+
+        <UncontrolledDropdown tag="li" className="dropdown-user nav-item">
+          <DropdownToggle tag="a" className="nav-link dropdown-user-link">
+            <span data-tour="user" style={{width:"30px"}}>
+              <Icon.Move size={28} className="mr-4 fonticon-wrap" />
+            </span>
+          </DropdownToggle>
+        </UncontrolledDropdown>
+
+        <UncontrolledDropdown>
+          <DropdownToggle
+            color="primary"
+            className="btn-icon btn-round dropdown-toggle right-menu"
+          >
+            <span data-tour="user">
+              <Icon.Settings size={32} style={{ left: 0 }} />
+            </span>
           </DropdownToggle>
           <UserDropdown {...this.props} />
         </UncontrolledDropdown>

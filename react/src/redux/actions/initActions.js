@@ -79,6 +79,7 @@ const getGeofences = (dispatch) => {
   axios
     .get(API_URL + "/api/geofences", config)
     .then(response => {
+      dispatch({type: "GET_GEOFENCES", payload: response.data})
     })
     .catch(err => {
       dispatch({type: "LOGOUT_WITH_JWT", payload: {}})
@@ -291,7 +292,7 @@ const asyncUpdate = (first, dispatch) => {
       })
 
     setTimeout(function () {
-      asyncUpdate(false)
+      asyncUpdate(false, dispatch)
     }, RECONNECT_TIMEOUT)
   }
 

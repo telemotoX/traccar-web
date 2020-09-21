@@ -10,10 +10,6 @@ const Home = lazy(() =>
   import("./views/pages/Home")
 )
 
-const Page2 = lazy(() =>
-  import("./views/pages/Page2")
-)
-
 const login = lazy(() =>
   import("./views/pages/authentication/login/Login")
 )
@@ -72,7 +68,6 @@ class AppRouter extends React.Component {
       <Router history={history}>
         <Switch>
           <AppRoute exact path="/" component={Home} />
-          <AppRoute path="/page2" component={Page2} />
           <AppRoute path="/login" component={login} fullLayout />
           <AppRoute path="/register" component={register} fullLayout />
         </Switch>

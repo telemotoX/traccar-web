@@ -5,7 +5,8 @@ import { connect } from "react-redux"
 import SidebarHeader from "./SidebarHeader"
 import Hammer from "react-hammerjs"
 import PerfectScrollbar from "react-perfect-scrollbar"
-import TabsBasic from "../../../../views/tabs/TabsBasic"
+import DeviceTab from "../../../../views/tabs/DeviceTab"
+import StateTab from "../../../../views/tabs/StateTab"
 
 class Sidebar extends Component {
   static getDerivedStateFromProps(props, state) {
@@ -178,7 +179,8 @@ class Sidebar extends Component {
                       menuShadow === true &&
                       this.setState({ menuShadow: false })
                   })}>
-                  <TabsBasic />
+                  <DeviceTab />
+                  <StateTab />
                 </ScrollbarTag>
               </div>
             </React.Fragment>

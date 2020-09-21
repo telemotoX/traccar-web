@@ -8,7 +8,6 @@ import {
   NavItem,
   NavLink
 } from "reactstrap"
-import classnames from "classnames"
 import { tabsBasic } from "./TabSourceCode"
 import DeviceTable from "../tables/DeviceTable";
 
@@ -32,16 +31,13 @@ class TabsBasic extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Card style={{height:"100%", marginBottom:"0"}}>
+        <Card style={{height:"50%", marginBottom:"0"}}>
           <CardBody style={{padding:"0"}}>
             <TabContent activeTab={this.state.activeTab}>
               <TabPane tabId="1">
                 <Nav tabs>
                   <NavItem>
                     <NavLink
-                      className={classnames({
-                        active: this.state.active === "1"
-                      })}
                       onClick={() => {
                         this.toggle("1")
                       }}
@@ -49,24 +45,9 @@ class TabsBasic extends React.Component {
                       Devices
                     </NavLink>
                   </NavItem>
-                  <NavItem>
-                    <NavLink
-                      className={classnames({
-                        active: this.state.active === "2"
-                      })}
-                      onClick={() => {
-                        this.toggle("2")
-                      }}
-                    >
-                      State
-                    </NavLink>
-                  </NavItem>
                 </Nav>
                 <TabContent className="py-50" activeTab={this.state.active}>
                   <TabPane tabId="1">
-                    <DeviceTable />
-                  </TabPane>
-                  <TabPane tabId="2">
                     <DeviceTable />
                   </TabPane>
                 </TabContent>

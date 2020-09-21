@@ -17,6 +17,14 @@
     }
   }
 
+  .btn:not(.btn-sm):not(.btn-lg),
+  .btn:not(.btn-sm):not(.btn-lg).dropdown-toggle.right-menu {
+    padding: 1.2rem 1.2rem;
+    &.btn-round {
+      @include button-round-variant(2rem);
+    }
+  }
+
   .btn.dropdown-toggle.dropdown-toggle-split {
     padding: $dropdown-btn-padding-y $dropdown-btn-split-padding-x;
     border-left-color: rgba($white, 0.2) !important;
@@ -39,7 +47,7 @@
     transform: scale(1, 0);
     box-shadow: 0 5px 25px rgba($pure-black, 0.1); // this according to vue version
     // left: 5px;  // it creates issue in navbar - notification dropdown
-    min-width: 8rem;
+    min-width: 10rem;
     &::before {
       content: "";
       position: absolute;

@@ -5,7 +5,9 @@ import toast from "./toast/index"
 import devices from "./device/index"
 import events from "./device/index"
 import positions from "./position/index"
+import attributes from "./attributes/index"
 import navbar from "./navbar/Index"
+import geofences from "./geofences/index"
 
 const rootReducer = combineReducers({
   customizer,
@@ -14,7 +16,9 @@ const rootReducer = combineReducers({
   toast,
   devices,
   events,
-  positions
+  positions,
+  attributes,
+  geofences,
 })
 
 export default rootReducer

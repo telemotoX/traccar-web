@@ -21,13 +21,6 @@ const MyMarkersList = ({ markers }) => {
 }
 
 class Home extends React.Component{
-  state = {
-    markers: [
-      { key: "marker1", position: [51.52, -0.1], content: "My first popup" },
-      { key: "marker2", position: [51.51, -0.1], content: "My second popup" },
-      { key: "marker3", position: [51.49, -0.1], content: "My third popup" }
-    ]
-  }
 
   UNSAFE_componentWillMount() {
     if(!this.props.auth.isAuthUser) {
@@ -44,7 +37,7 @@ class Home extends React.Component{
         <ToastBasic/>
         <Map
           center={
-            positions.length > 0 ? [positions[0].latitude, positions[0].longitude] : [51.505, -0.09]
+            positions && positions.length > 0 ? [positions[0].latitude, positions[0].longitude] : [51.505, -0.09]
           }
           zoom={5}
         >
@@ -53,7 +46,7 @@ class Home extends React.Component{
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <MyMarkersList markers={
-            positions.length > 0 ? positions.map(function(position){
+            positions && positions.length > 0 ? positions.map(function(position){
               return {
                 'key': position.deviceId,
                 'position': [position.latitude, position.longitude],
