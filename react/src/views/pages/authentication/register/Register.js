@@ -6,7 +6,7 @@ import {
   CardBody,
   Row,
   Col,
-  FormGroup, Label, Button
+  FormGroup, Button
 } from "reactstrap"
 import "../../../../assets/scss/pages/authentication.scss"
 import {history} from "../../../../history";
@@ -130,15 +130,6 @@ class Register extends React.Component {
                               )}
                             </ErrorMessage>
                           </FormGroup>
-                          <FormGroup>
-                            <Field
-                              type="checkbox"
-                              name="accept_terms"
-                              id="accept_terms"
-                              className={"vx-icon"}
-                            />
-                            <Label for="accept_terms">I accept the terms & conditions.</Label>
-                          </FormGroup>
                           <div className="d-flex justify-content-between">
                             <Button.Ripple
                               color="primary"
@@ -147,10 +138,10 @@ class Register extends React.Component {
                                 history.push("/login")
                               }}
                             >
-                              Login
+                              Signin
                             </Button.Ripple>
                             <Button.Ripple color="primary" type="submit">
-                              Register
+                              Signup
                             </Button.Ripple>
                           </div>
                         </Form>

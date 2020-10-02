@@ -17,7 +17,7 @@ import "../../../../assets/scss/pages/authentication.scss"
 
 const formSchema = Yup.object().shape({
   email: Yup.string()
-    .email("Invalid email address")
+    // .email("Invalid email address")
     .required("Required"),
   password: Yup.string()
     .min(5, "Must be longer than 5 characters")
@@ -59,7 +59,7 @@ class Login extends React.Component {
                           <br />
                           <FormGroup className="form-label-group position-relative has-icon-left">
                             <Field
-                              type="email"
+                              type="text"
                               name="email"
                               id="email"
                               placeholder={"Email"}
@@ -90,17 +90,8 @@ class Login extends React.Component {
                               )}
                             </ErrorMessage>
                           </FormGroup>
-                          <FormGroup className="d-flex justify-content-between align-items-center">
-                            <Field
-                              type="checkbox"
-                              name="remember"
-                              id="remember"
-                              className={"vx-icon"}
-                            />
-                            <Label for="remember">Remember me</Label>
-                            <div className="float-right">
-                              Forgot Password?
-                            </div>
+                          <FormGroup className="d-flex justify-content-end">
+                            <a href="/forget">Forgot Password?</a>
                           </FormGroup>
                           <div className="d-flex justify-content-between">
                             <Button.Ripple
@@ -110,10 +101,10 @@ class Login extends React.Component {
                                 history.push("/register")
                               }}
                             >
-                              Register
+                              Signup
                             </Button.Ripple>
                             <Button.Ripple color="primary" type="submit">
-                              Login
+                              Signin
                             </Button.Ripple>
                           </div>
                         </Form>

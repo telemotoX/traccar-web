@@ -57,7 +57,6 @@ export const deleteGeofence = (id) => {
       }
     }
 
-
     axios
       .delete(API_URL + "/api/geofences/" + id, config)
       .then(response => {
@@ -67,5 +66,11 @@ export const deleteGeofence = (id) => {
         dispatch({type: "LOGOUT_WITH_JWT", payload: {}})
         history.push("/login")
       })
+  }
+}
+
+export const toggleVisible = () => {
+  return dispatch => {
+    dispatch({type: "TOGGLE_VISIBLE"})
   }
 }

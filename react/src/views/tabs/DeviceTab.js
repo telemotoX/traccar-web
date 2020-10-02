@@ -35,7 +35,7 @@ class TabsBasic extends React.Component {
           <CardBody style={{padding:"0"}}>
             <TabContent activeTab={this.state.activeTab}>
               <TabPane tabId="1">
-                <Nav tabs>
+                <Nav tabs style={{background: "rgb(191 187 245)"}}>
                   <NavItem>
                     <NavLink
                       onClick={() => {

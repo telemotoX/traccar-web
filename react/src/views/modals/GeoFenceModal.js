@@ -422,6 +422,8 @@ class GeoFenceModal extends React.Component {
                         case "CIRCLE":
                           area = `${this.state.current_geo_type} (${this.state.current_coordinates[0]} ${this.state.current_coordinates[1]}, ${this.state.current_circle_radius})`
                           break
+                        default:
+                          break
                       }
 
                       const geofence = {
@@ -552,6 +554,8 @@ class GeoFenceModal extends React.Component {
                           break
                         case "CIRCLE":
                           area = `${this.state.current_geo_type} (${this.state.current_coordinates[0]} ${this.state.current_coordinates[0]}, ${this.state.current_circle_radius})`
+                          break
+                        default:
                           break
                       }
 

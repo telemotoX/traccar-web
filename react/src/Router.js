@@ -10,12 +10,16 @@ const Home = lazy(() =>
   import("./views/pages/Home")
 )
 
-const login = lazy(() =>
+const Login = lazy(() =>
   import("./views/pages/authentication/login/Login")
 )
 
-const register = lazy(() =>
+const Register = lazy(() =>
   import("./views/pages/authentication/register/Register")
+)
+
+const ForgetPassword = lazy(() =>
+  import("./views/pages/authentication/Forget")
 )
 
 // Set Layout and Component Using App Route
@@ -68,8 +72,9 @@ class AppRouter extends React.Component {
       <Router history={history}>
         <Switch>
           <AppRoute exact path="/" component={Home} />
-          <AppRoute path="/login" component={login} fullLayout />
-          <AppRoute path="/register" component={register} fullLayout />
+          <AppRoute path="/login" component={Login} fullLayout />
+          <AppRoute path="/register" component={Register} fullLayout />
+          <AppRoute path="/forget" component={ForgetPassword} fullLayout />
         </Switch>
       </Router>
     )

@@ -7,9 +7,10 @@ import {
 } from "reactstrap"
 import axios from "axios"
 import * as Icon from "react-feather"
-import {connect} from "react-redux";
-import {logoutWithJWT} from "../../../redux/actions/auth/loginActions";
-import GeoFenceModal from "../../../views/modals/GeoFenceModal";
+import {connect} from "react-redux"
+import {logoutWithJWT} from "../../../redux/actions/auth/loginActions"
+import {toggleVisible} from "../../../redux/actions/geofence"
+import GeoFenceModal from "../../../views/modals/GeoFenceModal"
 
 const UserDropdown = props => {
   const [geofence, setGeofence] = useState(false)
@@ -63,7 +64,7 @@ const UserDropdown = props => {
         onClick={ ()=> props.logoutWithJWT() }
       >
         <Icon.Power size={14} className="mr-50" />
-        <span className="align-middle">Log Out</span>
+        <span className="align-middle">Log out</span>
       </DropdownItem>
 
       <GeoFenceModal show={geofence} onClose={closeGeoFenceModal} />
@@ -89,26 +90,26 @@ class NavbarUser extends React.PureComponent {
         <UncontrolledDropdown tag="li" className="dropdown-user nav-item">
           <DropdownToggle tag="a" className="nav-link dropdown-user-link">
             <span data-tour="user" style={{width:"30px"}}>
-              <Icon.MapPin size={28} className="mr-4 fonticon-wrap" />
+              <Icon.MapPin size={28} className="mr-4 fonticon-wrap" onClick={()=> this.props.toggleVisible()} />
             </span>
           </DropdownToggle>
         </UncontrolledDropdown>
 
-        <UncontrolledDropdown tag="li" className="dropdown-user nav-item">
-          <DropdownToggle tag="a" className="nav-link dropdown-user-link">
-            <span data-tour="user" style={{width:"30px"}}>
-              <Icon.Target size={28} className="mr-4 fonticon-wrap" />
-            </span>
-          </DropdownToggle>
-        </UncontrolledDropdown>
+        {/*<UncontrolledDropdown tag="li" className="dropdown-user nav-item">*/}
+        {/*  <DropdownToggle tag="a" className="nav-link dropdown-user-link">*/}
+        {/*    <span data-tour="user" style={{width:"30px"}}>*/}
+        {/*      <Icon.Target size={28} className="mr-4 fonticon-wrap" />*/}
+        {/*    </span>*/}
+        {/*  </DropdownToggle>*/}
+        {/*</UncontrolledDropdown>*/}
 
-        <UncontrolledDropdown tag="li" className="dropdown-user nav-item">
-          <DropdownToggle tag="a" className="nav-link dropdown-user-link">
-            <span data-tour="user" style={{width:"30px"}}>
-              <Icon.Move size={28} className="mr-4 fonticon-wrap" />
-            </span>
-          </DropdownToggle>
-        </UncontrolledDropdown>
+        {/*<UncontrolledDropdown tag="li" className="dropdown-user nav-item">*/}
+        {/*  <DropdownToggle tag="a" className="nav-link dropdown-user-link">*/}
+        {/*    <span data-tour="user" style={{width:"30px"}}>*/}
+        {/*      <Icon.Move size={28} className="mr-4 fonticon-wrap" />*/}
+        {/*    </span>*/}
+        {/*  </DropdownToggle>*/}
+        {/*</UncontrolledDropdown>*/}
 
         <UncontrolledDropdown>
           <DropdownToggle
@@ -126,4 +127,4 @@ class NavbarUser extends React.PureComponent {
   }
 }
 
-export default connect(null, { logoutWithJWT })(NavbarUser)
+export default connect(null, { logoutWithJWT, toggleVisible })(NavbarUser)

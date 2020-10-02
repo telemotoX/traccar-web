@@ -1,5 +1,6 @@
 const initialState = {
   geofences: [],
+  isVisible: true,
 }
 
 const geofencesReducer = (state = initialState, action) => {
@@ -28,6 +29,11 @@ const geofencesReducer = (state = initialState, action) => {
           else
             return geofence
         })
+      }
+    case "TOGGLE_VISIBLE":
+      return {
+        ...state,
+        isVisible: !state.isVisible
       }
     default:
       return state
