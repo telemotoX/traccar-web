@@ -115,8 +115,7 @@ class Home extends React.Component{
             }
 
             {/*'roadmap' | 'satellite' | 'terrain' | 'hybrid'*/}
-            {/*<ReactLeafletGoogleLayer googleMapsLoaderConf={{KEY: 'AIzaSyDoh3bx7qBPQQmhOB0H1U-K_tDIjOfzUDc'}} type={'roadmap'} />*/}
-            <ReactLeafletGoogleLayer googleMapsLoaderConf={{KEY: 'AIzaSyAciCLyJJdwrAhZmzeHeFHQlJtxbffcaqc'}} type={'roadmap'} />
+            <ReactLeafletGoogleLayer googleMapsLoaderConf={{KEY: ''}} type={'roadmap'} />
 
             {/*{this.state.isMapInit && <TailRoute map={this.map} />}*/}
           </Map>
