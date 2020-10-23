@@ -469,7 +469,7 @@ class GeoFenceModal extends React.Component {
                           </ErrorMessage>
                         </FormGroup>
                         <FormGroup>
-                          <Map center={[43.65282599631334, 123.82151998299355]} zoom={5} zoomControl={false} className="draw-mpabox">
+                          <Map center={[51.505, -0.09]} zoom={5} zoomControl={false} className="draw-mpabox">
                             <TileLayer
                               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                               url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
