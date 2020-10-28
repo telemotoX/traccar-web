@@ -58,10 +58,6 @@ class DeviceTable extends React.Component {
     temp_data.push({"attribute": "Total Distance", "value": position[0].attributes.totalDistance})
     temp_data.push({"attribute": "Motion", "value": position[0].attributes.motion ? "True" : "False"})
     this.props.setCurrentAttribute(temp_data)
-    // })
-    // .catch(err => {
-    //   console.log("Failed to get device's address")
-    // })
   }
 
   rowClicked = (row) => {
@@ -69,10 +65,11 @@ class DeviceTable extends React.Component {
     const position = this.props.positions.filter(position => {
       return position.deviceId === row.id
     })
-    position && this.setCurrentAttribute(position)
+    position && position.length > 0 && this.setCurrentAttribute(position)
   };
 
   render() {
+    console.log(this.props.devices)
     const conditionalRowStyles = [
       {
         when: row => row.id === this.props.current_device.id,

@@ -11,6 +11,18 @@ const devicesReducer = (state = initialState, action) => {
         devices: [...state.devices, action.payload],
         current_device: action.payload
       }
+    case "EDIT_DEVICE":
+      return {
+        ...state,
+        devices: state.devices.map(device => {
+          if (device.id === action.payload.device_id) {
+            return action.payload
+          } else {
+            return device
+          }
+        }),
+        current_device: action.payload
+      }
     case "GET_DEVICES":
       return {
         ...state,

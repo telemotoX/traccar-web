@@ -36,7 +36,7 @@ export const addDevice = (value) => {
   }
 }
 
-export const editDevice = (value) => {
+export const editDevice = (device) => {
   return dispatch => {
     const config = {
       headers: {
@@ -44,23 +44,11 @@ export const editDevice = (value) => {
       }
     }
 
-    const device = {
-      category: null,
-      contact: "",
-      disabled: false,
-      groupId: 0,
-      id: -1,
-      lastUpdate: null,
-      model: "",
-      name: value.name,
-      phone: "",
-      status: null,
-      uniqueId: value.identifier
-    }
     axios
-      .post(API_URL + "/api/devices", device, config)
+      .put(API_URL + "/api/devices/"+device.id, device, config)
       .then(response => {
-        dispatch({type: "ADD_DEVICE", payload: response.data})
+        console.log(response.data)
+        dispatch({type: "EDIT_DEVICE", payload: response.data})
       })
       .catch(err => {
         dispatch({type: "LOGOUT_WITH_JWT", payload: {}})

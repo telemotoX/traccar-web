@@ -52,7 +52,6 @@ class Home extends React.Component{
 
   render() {
     const {positions, geofences} = this.props
-    console.log(geofences)
 
     return (
         <div>
@@ -115,7 +114,7 @@ class Home extends React.Component{
             }
 
             {/*'roadmap' | 'satellite' | 'terrain' | 'hybrid'*/}
-            {/*<ReactLeafletGoogleLayer googleMapsLoaderConf={{KEY: ''}} type={'roadmap'} />*/}
+            <ReactLeafletGoogleLayer googleMapsLoaderConf={{KEY: 'AIzaSyBW3Bo4N5Ll1HJAPI4CCaH9kBIcq6YdegY'}} type={'roadmap'} />
 
             {/*{this.state.isMapInit && <TailRoute map={this.map} />}*/}
           </Map>

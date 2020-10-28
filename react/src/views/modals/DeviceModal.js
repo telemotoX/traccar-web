@@ -163,7 +163,7 @@ class DeviceModal extends React.Component {
                       <FormGroup className="form-label-group position-relative has-icon-left">
                         <Label for="identifier">Identifier</Label>
                         <Field
-                          type="number"
+                          type="text"
                           name="identifier"
                           id="identifier"
                           placeholder={"Identifier"}
@@ -198,8 +198,8 @@ class DeviceModal extends React.Component {
               <ModalBody>
                 <Formik
                   initialValues={{
-                    name:"",
-                    identifier: ""
+                    name: this.props.current_device && this.props.current_device.name,
+                    identifier: this.props.current_device && this.props.current_device.uniqueId
                   }}
                   validationSchema={formSchema}
                   onSubmit={values => {
@@ -207,7 +207,10 @@ class DeviceModal extends React.Component {
                       edit_modal: !prevState.edit_modal
                     }))
 
-                    this.props.editDevice(values)
+                    let device = this.props.current_device
+                    device['name'] = values.name
+                    device['uniqueId'] = values.identifier
+                    this.props.editDevice(device)
                   }}
                 >
                   {({errors, touched}) => (
@@ -219,7 +222,7 @@ class DeviceModal extends React.Component {
                           name="name"
                           id="name"
                           placeholder={"Name"}
-                          value={this.props.current_device.name}
+                          // value={}
                           className={`form-control ${errors.name && touched.name && "is-invalid"}`}
                         />
                         <ErrorMessage name="name">
@@ -231,11 +234,11 @@ class DeviceModal extends React.Component {
                       <FormGroup className="form-label-group position-relative has-icon-left">
                         <Label for="identifier">Identifier</Label>
                         <Field
-                          type="number"
+                          type="text"
                           name="identifier"
                           id="identifier"
                           placeholder={"Identifier"}
-                          value={this.props.current_device.uniqueId}
+                          // value={}
                           className={`form-control ${errors.identifier && touched.identifier && "is-invalid"}`}
                         />
                         <ErrorMessage name="identifier">
